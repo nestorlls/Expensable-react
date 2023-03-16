@@ -78,8 +78,10 @@ export const Planets = () => {
           </Card>
         ))}
       </Grid>
-      {next && <button onClick={handleClickNext}>Next</button>}
-      {prev && <button onClick={handleClickPrev}>Previous</button>}
+      <div className='button-container'>
+        {next && <button onClick={handleClickNext}>Next</button>}
+        {prev && <button onClick={handleClickPrev}>Previous</button>}
+      </div>
     </Container>
   );
 };

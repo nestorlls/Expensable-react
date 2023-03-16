@@ -1,7 +1,6 @@
 import './App.css';
-import { Container } from './components/Container/Container';
-import { Grid } from './components/Grid/Grid';
 import { Hero } from './components/Hero/Hero';
+import { Hosts } from './components/Page/Host';
 import { Planets } from './components/Page/Planets';
 import { SearchForm } from './components/SearchForm/SearchForm';
 
@@ -14,9 +13,7 @@ function App() {
         <SearchForm ca={callToAction} />
       </Hero>
       <Planets />
-      <Container title={'Hosts'}>
-        <Grid />
-      </Container>
+      <Hosts />
     </div>
   );
 }

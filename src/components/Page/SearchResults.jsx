@@ -1,48 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { getAllPlanets } from '../../services/Planet_service';
 import { formatNumber } from '../../utils/format-number';
 import { Card } from '../Card/Card';
 import { Container } from '../Container/Container';
 import { Grid } from '../Grid/Grid';
 
-export const Planets = ({ onUpdatePlanets }) => {
-  const [next, setNext] = useState(null);
-  const [prev, setPrev] = useState(null);
-  const [planets, setPlanets] = useState([]);
-
-  useEffect(() => {
-    const fetchPlanets = async () => {
-      const data = await getAllPlanets();
-      setPlanets(data.results);
-      onUpdatePlanets(data.results);
-      setNext(data.next);
-      setPrev(data.previous);
-    };
-    fetchPlanets();
-  }, []);
-
-  const handleClickNext = async (e) => {
-    e.preventDefault();
-    const data = await getAllPlanets(next);
-    setPlanets(data.results);
-    onUpdatePlanets(data.results);
-    setNext(data.next);
-    setPrev(data.previous);
-  };
-
-  const handleClickPrev = async (e) => {
-    e.preventDefault();
-    const data = await getAllPlanets(prev);
-    setPlanets(data.results);
-    onUpdatePlanets(data.results);
-    setPrev(data.previous);
-    setNext(data.next);
-  };
-
+export const SearchResults = ({ results }) => {
   return (
-    <Container title={'Planets'}>
+    <Container title={'Search Results'}>
       <Grid columns={4} rows='auto' gap='18px'>
-        {planets.map((planet) => (
+        {results.map((planet) => (
           <Card key={planet.name}>
             <h2>{planet.name}</h2>
             <div className='horizontal-group'>
@@ -78,10 +43,6 @@ export const Planets = ({ onUpdatePlanets }) => {
           </Card>
         ))}
       </Grid>
-      <div className='button-container'>
-        {next && <button onClick={handleClickNext}>Next</button>}
-        {prev && <button onClick={handleClickPrev}>Previous</button>}
-      </div>
     </Container>
   );
 };

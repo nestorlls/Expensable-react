@@ -7,16 +7,37 @@ import { Grid } from '../Grid/Grid';
 
 export const Planets = () => {
   const [next, setNext] = useState(null);
+  const [prev, setPrev] = useState(null);
   const [planets, setPlanets] = useState([]);
+
+  // console.log(prev);
 
   useEffect(() => {
     const fetchPlanets = async () => {
       const data = await getAllPlanets();
       setPlanets(data.results);
       setNext(data.next);
+      setPrev(data.previous);
+      console.log(data.previous);
     };
     fetchPlanets();
   }, []);
+
+  const handleClickNext = async (e) => {
+    e.preventDefault();
+    const data = await getAllPlanets(next);
+    setPlanets(data.results);
+    setNext(data.next);
+    setPrev(data.previous);
+  };
+
+  const handleClickPrev = async (e) => {
+    e.preventDefault();
+    const data = await getAllPlanets(prev);
+    setPlanets(data.results);
+    setPrev(data.previous);
+    setNext(data.next);
+  };
 
   return (
     <Container title={'Planets'}>
@@ -57,7 +78,8 @@ export const Planets = () => {
           </Card>
         ))}
       </Grid>
-      {next && <button>Next</button> }
+      {next && <button onClick={handleClickNext}>Next</button>}
+      {prev && <button onClick={handleClickPrev}>Previous</button>}
     </Container>
   );
 };

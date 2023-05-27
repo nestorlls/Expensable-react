@@ -3,7 +3,7 @@ import './Container.css';
 
 export const Container = ({ title, children }) => {
   return (
-    <section className='container'>
+    <section className="container">
       {title && <h2>{title}</h2>}
       {children}
     </section>
